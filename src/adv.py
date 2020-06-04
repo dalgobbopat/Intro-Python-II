@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -44,8 +46,53 @@ room['treasure'].s_to = room['narrow']
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
+
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+name = input('What is your name, Adventurer? ')
+player = Player(name, room['outside'])
+
+print(f'Welcome {name}. Begin your adventure from {player.current_room}')
+# print(room['outside'].n_to)
+
+while True:
+    direction = input('Choose your next direction. (\n W for North,\n S for South,\n D for East,\n A for West,\n Q to Quit\n) ')
+
+    if direction == 'W' or direction == 'w':
+        next_move = player.current_room.n_to
+        if next_move == None:
+            print("That way seems to be blocked, you should try picking a new direction.")
+        else:
+            player = Player(name, next_move)
+            print(player)
+
+    elif direction == 'S' or direction == 's':
+        next_move = player.current_room.s_to
+        if next_move == None:
+            print("That way seems to be blocked, you should try picking a new direction.")
+        else:
+            player = Player(name, next_move)
+            print(player)
+
+    elif direction == 'D' or direction == 'd':
+        next_move = player.current_room.e_to
+        if next_move == None:
+            print("That way seems to be blocked, you should try picking a new direction.")
+        else:
+            player = Player(name, next_move)
+            print(player)
+
+    elif direction == 'A' or direction == 'a':
+        next_move = player.current_room.w_to
+        if next_move == None:
+            print("That way seems to be blocked, you should try picking a new direction.")
+        else:
+            player = Player(name, next_move)
+            print(player)
+
+    elif direction == 'Q' or direction == 'q':
+        print(f"Thanks for playing {name}! Come back soon!")
+        break
